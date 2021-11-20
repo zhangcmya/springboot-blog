@@ -25,7 +25,7 @@ import org.springframework.stereotype.Service;
  * @date 2021-11-17 19:11:12
  */
 @Service
-public class UserServiceImpl extends ServiceImpl<BaseMapper<UserEntity>, UserEntity> implements UserDetailsService {
+public class SecurityUserServiceImpl extends ServiceImpl<BaseMapper<UserEntity>, UserEntity> implements UserDetailsService {
 
 	@Autowired
 	private RoleMapper roleMapper;

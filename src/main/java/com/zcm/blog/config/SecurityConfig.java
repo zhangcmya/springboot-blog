@@ -4,9 +4,11 @@ import com.zcm.blog.filter.JwtAuthorizationFilter;
 import com.zcm.blog.filter.JwtLoginFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -57,6 +59,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			// 前后端分离禁用Session
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
+	}
+
+	/**
+	 * 忽略拦截url或静态资源文件夹
+	 * web.ignoring(): 会直接过滤该url - 将不会经过Spring Security过滤器链
+	 * http.permitAll(): 不会绕开Spring Security验证，相当于是允许该路径通过
+	 *
+	 * @param web web
+	 * @throws Exception e
+	 */
+	@Override
+	public void configure(WebSecurity web) throws Exception {
+		// 放行swagger
+		web.ignoring().antMatchers(HttpMethod.GET,
+			"/swagger-ui.html",
+			"/swagger-ui/*",
+			"/swagger-resources/**",
+			"/v2/api-docs",
+			"/v3/api-docs",
+			"/webjars/**");
 	}
 
 	@Bean

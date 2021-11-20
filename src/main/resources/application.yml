@@ -2,12 +2,28 @@ server:
   port: 8090
 
 spring:
+  swagger:
+    back:
+      enable: true
+      groupName: backend
+      title: blog
+      basePackage: com.zcm.blog.controller
+      description: 描述
+      version: 1.0.0
+      contactName: 张聪明
+      contactUrl: www.baidu.com
+      contactEmail: 273080390@qq.com
   datasource:
     url: jdbc:mysql://${DB_URL}:3306/blog
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
+
+springfox:
+  documentation:
+    swagger-ui:
+      enabled: true
 
 logging:
   config: classpath:log4j2.xml
